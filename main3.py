@@ -231,4 +231,4 @@ def hello():
 
 # Run the Flask app if this file is executed directly
 if __name__ == '__main__':
-    app.run(port=5001, debug=True)
+    app.run(port=8000, debug=True)
