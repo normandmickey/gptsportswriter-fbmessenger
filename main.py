@@ -63,16 +63,30 @@ def generate_openai_response(user_message, chat_history):
         messages.append({"role": "user", "content": user_message})
 
         # Call OpenAI API to generate a response
-        response = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo",
-            messages=messages
+        #response = openai.ChatCompletion.create(
+        #    model="gpt-4o",
+        #    messages=messages
+        #)
+
+        response = openai.chat.completions.create(
+           model="gpt-4o",
+           messages=messages,
+           max_tokens=500,
+           temperature=0.3
         )
 
         # Check if the response contains valid choices and return the first one
-        if 'choices' in response and len(response['choices']) > 0:
-            return response['choices'][0]['message']['content']
-        else:
-            return "Sorry, I couldn’t generate a response."
+        #if 'choices' in response and len(response['choices']) > 0:
+            #return response['choices'][0]['message']['content']
+        return response.choices[0].message.content
+        #else:
+        #    return "Sorry, I couldn’t generate a response."
+
+        # Check if the response contains valid choices and return the first one
+        #if 'choices' in response and len(response['choices']) > 0:
+        #    return response['choices'][0]['message']['content']
+        #else:
+        #    return "Sorry, I couldn’t generate a response."
     except Exception as e:
         # Log any errors that occur during response generation
         logging.error(f"Error generating response: {e}")
